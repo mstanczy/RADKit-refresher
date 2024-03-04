@@ -1,6 +1,6 @@
 # RADKit-refresher
 
-## 1. Navigating through RADKit Service 
+## 1. Connecting to RADKit Service
 
 1.1. Upgrade to Radkit 1.6.4
 
@@ -62,7 +62,7 @@ Username: tac_admin
 password: C1sco!12345
 
 
-1.8.  Go to “remote users” and add your CCO user there with “Training” label. 
+1.8.  Go to “remote users” and add **your** CCO user there with “Training” label. 
 Don’t forget to set “Activate this user” and “Manual”.
 
 
@@ -86,6 +86,12 @@ Terminal:   populate username/password with dummy record
 
 1.15. In Network Console update the inventory and display the updated list of devices - you should see devices marked with “Training” and your new label.
 
+1.16. Edit the .radkit/client/settings.toml file and modify the ```sso_login_open_browser_default``` parameter:
+
+```
+[client]
+sso_login_open_browser_default = true
+```
 
 ## 2. Interactive session
 
