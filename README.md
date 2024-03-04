@@ -206,12 +206,13 @@ Upload successful!
 >>> dcloud = client.service("b823-y8vn-9otz")
 ```
 
-### 3.2 Display the inventory of the Service you connected to:
+Display the inventory of the Service you connected to:
 ```python
 >>> dcloud.inventory
 ```
 
-### 3.3 Collect ```show version``` from router2 and save it to showver variable:
+### 3.2 Collect ```show version``` from router2 and save it to ```showver``` variable:
+
 ```python
 >>> showver = dcloud.inventory['router2'].exec("show version").wait()
 ```
@@ -248,10 +249,10 @@ device_uuid  d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1
 **data**         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...       <<<<<<<<<<<<<<<<
 -----------  ----------------------------------------------------------------------------------
 
->>> **showver.result.command**
+>>> showver.result.command
 'show version'
 
->>> **showver.result.data**
+>>> showver.result.data
 'Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.4a, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupp
 ort\nCopyright (c) 1986-2021 by Cisco Systems, Inc.\nCompiled Tue 20-Jul-21 04:59 by mcpre\n \n \nCisco IOS-XE software, Copyright (c) 2005-2021 by cisco Systems, Inc.\nAll rights reserved.  Certain components of Cisco IOS-XE software are\nl
 icensed under the GNU General Public License ("GPL") Version 2.0.  The\nsoftware code licensed under GPL Version 2.0 is free software that comes\nwith ABSOLUTELY NO WARRANTY.  You can redistribute and/or modify such\nGPL code under the terms
@@ -324,7 +325,9 @@ data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCis
 -----------  ----------------------------------------------------------------------------------
 ```
 
-### 4.4 With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
+### 4.4 Parse the results
+
+With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
 For example, let's find the hostname of the device that is running 17.13.01a version:
 
 ```python
@@ -333,7 +336,9 @@ for name, device_result in showver2.result.items():
         print(name)
 ```
 
-### 4.5 Execute this simple script to display the mapping between the device and its software version:
+### 4.5 Parse the results with error handling
+
+Execute this simple script to display the mapping between the device and its software version:
 
 ```python
 
@@ -351,3 +356,9 @@ for name, device_result in showver2.result.items():
     print(f"{name} -> {version}")
 ```
 
+
+### 4.6 Execute a stadalone script
+
+```python
+ radkit-client script simple_client_script_v2.py
+```
