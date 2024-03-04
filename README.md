@@ -359,6 +359,30 @@ for name, device_result in showver2.result.items():
 
 ### 4.6 Execute a stadalone script
 
+Download the python file from this repository
+
 ```python
  radkit-client script simple_client_script_v2.py
+```
+
+The output should look like this:
+```python
+Enter your CCO user id: mstanczy@cisco.com
+Enter the service id: b823-y8vn-9otz
+
+A browser window was opened to continue the authentication process. Please follow the instructions there.
+
+Authentication result received.
+21:17:25.992Z INFO  | Connecting to forwarder [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-2/' uri='wss://prod.radkit-cloud.cisco.com/forwarder-2/websocket/']
+21:17:26.301Z INFO  | Connection to forwarder successful [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-2/' uri='wss://prod.radkit-cloud.cisco.com/forwarder-2/websocket/']
+21:17:26.376Z INFO  | Forwarder client created. [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-2/']
+21:17:26.647Z INFO  | Connecting to forwarder [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-1/' uri='wss://prod.radkit-cloud.cisco.com/forwarder-1/websocket/']
+21:17:26.841Z INFO  | Connection to forwarder successful [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-1/' uri='wss://prod.radkit-cloud.cisco.com/forwarder-1/websocket/']
+21:17:26.910Z INFO  | Forwarder client created. [forwarder_base_url='wss://prod.radkit-cloud.cisco.com/forwarder-1/']
+router4 -> 17.13.01a
+router1 -> 15.4(20140131:100343)
+router3 -> 15.4(20140131:100343)
+router5 -> 15.4(20140131:100343)
+router2 -> 17.03.04a
+
 ```
