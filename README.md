@@ -89,7 +89,7 @@ Terminal:   populate username/password with dummy record
 
 ## 2. Interactive session
 
-2.1. Open interactive session to router2 and execute:
+### 2.1. Open interactive session to router2 and execute:
 
 - show version
 - dir flash:
@@ -112,11 +112,11 @@ Example from MacOS:
 ```
 
 
-2.2.  Download the packages.conf file from Router2 to your laptop.
+### 2.2.  Download the packages.conf file from Router2 to your laptop.
 
 The very first time the request might fail:
 ```python
-[mstanczy@b823-y8vn-9otz] > **download scp router2 packages.conf R2packages.conf**
+[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
 ERROR: Performing action failed: Invalid SCP response: Administratively disabled.
 ```
 
@@ -127,13 +127,13 @@ Router2(config)#ip scp server enable
 
 Retry downloading the file:
 ```python
-[mstanczy@b823-y8vn-9otz] > **download scp router2 packages.conf R2packages.conf**
-R2packages.conf 100.0% [================================================================================================================================================================================================>] 1105/1105 eta [00:00]
+[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
+R2packages.conf 100.0% [==========================>] 1105/1105 eta [00:00]
 Downloaded to /Users/mstanczy/R2packages.conf
 ```
 
 
-2.3. Download file and upload to the test SR 696985125
+### 2.3. Download file and upload to the test SR 696985125
 
 ```python
 [mstanczy@b823-y8vn-9otz] > download cxd scp router2 packages.conf mstanczy-packages.conf
@@ -174,7 +174,7 @@ Notice that the case metadata was updated with Automations tag and the RADKit se
 This integration is implemented in RADKit 1.6 onwards.
 
 
-2.4. Session log file upload
+### 2.4. Session log file upload
 
 In Radkit console establish interactive session with Router4 and collect “show ip interface brief”. 
 Exit from the interactive session.
@@ -195,7 +195,7 @@ Upload successful!
 
 ## 3. RADKit Client - collecting outputs from a single device
 
-3.1  Exit from network console and start RADKit Client.
+### 3.1  Exit from network console and start RADKit Client.
 ```python
 [mstanczy@b823-y8vn-9otz] 696985125> exit
 
@@ -206,12 +206,12 @@ Upload successful!
 >>> dcloud = client.service("b823-y8vn-9otz")
 ```
 
-3.2 Display the inventory of the Service you connected to:
+### 3.2 Display the inventory of the Service you connected to:
 ```python
 >>> dcloud.inventory
 ```
 
-3.3 Collect ```show version``` from router2 and save it to showver variable:
+### 3.3 Collect ```show version``` from router2 and save it to showver variable:
 ```python
 >>> showver = dcloud.inventory['router2'].exec("show version").wait()
 ```
@@ -273,13 +273,13 @@ You can view the collected data in a human friendly format:
 
 ## 4. RADKit Client - collecting outputs from multiple devices
 
-4.1 Create a dictionary called “iosxe” that contains 2 devices: router2 and router4
+### 4.1 Create a dictionary called “iosxe” that contains 2 devices: router2 and router4
 ```python
 >>> iosxe = dcloud.inventory.subset(["router2", "router4"])
 >>> print(iosxe)
 ```
 
-Execute "show version" on the devices included in the device dictionary "iosxe":
+### 4.2 Execute "show version" on the devices included in the device dictionary "iosxe":
 
 ```python
 >>> showver2 = iosxe.exec("show version").wait()
@@ -296,7 +296,7 @@ router2  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router2   d73d40b9-fc28-4
 router4  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router4   d76d137e-2787-414b-a181-e7c3e005fb37  show version  Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCisco IOS Softw...
 ```
 
-Since we're dealing with a dictionary we can iterate through its items:
+### 4.3 Since we're dealing with a dictionary we can iterate through its items:
 
 ```python
 >>> for name, device_result in showver2.result.items():
@@ -324,7 +324,7 @@ data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCis
 -----------  ----------------------------------------------------------------------------------
 ```
 
-With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
+### 4.4 With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
 For example, let's find the hostname of the device that is running 17.13.01a version:
 
 ```python
@@ -333,7 +333,7 @@ for name, device_result in showver2.result.items():
         print(name)
 ```
 
-Execute this simple script to display the mapping between the device and its software version:
+### 4.5 Execute this simple script to display the mapping between the device and its software version:
 
 ```python
 
