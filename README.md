@@ -107,7 +107,7 @@ Display the content of the session log. You can use "!" to execute the OS comman
 
 Example from MacOS:
 
-``
+```
 [mstanczy@b823-y8vn-9otz] > !more /Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log
 ```
 
@@ -116,7 +116,7 @@ Example from MacOS:
 
 The very first time the request might fail:
 ```python
-[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
+[mstanczy@b823-y8vn-9otz] > **download scp router2 packages.conf R2packages.conf**
 ERROR: Performing action failed: Invalid SCP response: Administratively disabled.
 ```
 
@@ -127,7 +127,7 @@ Router2(config)#ip scp server enable
 
 Retry downloading the file:
 ```python
-[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
+[mstanczy@b823-y8vn-9otz] > **download scp router2 packages.conf R2packages.conf**
 R2packages.conf 100.0% [================================================================================================================================================================================================>] 1105/1105 eta [00:00]
 Downloaded to /Users/mstanczy/R2packages.conf
 ```
