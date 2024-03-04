@@ -91,8 +91,8 @@ Terminal:   populate username/password with dummy record
 
 2.1. Open interactive session to router2 and execute:
 
-show version
-dir flash:
+- show version
+- dir flash:
 
 Exit from the interactive session.
 Note the session log file location.
@@ -104,8 +104,11 @@ Interactive session logs saved in file [/Users/mstanczy/.radkit/session_logs/cli
 ```
 
 Display the content of the session log. You can use "!" to execute the OS command without exiting from Network Console
-```
-Example from MacOS:[mstanczy@b823-y8vn-9otz] > !more /Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log
+
+Example from MacOS:
+
+``
+[mstanczy@b823-y8vn-9otz] > !more /Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log
 ```
 
 
@@ -180,7 +183,8 @@ In RADKit console display the session logs. Identify the log file that pertains 
 
 ```python
 [mstanczy@b823-y8vn-9otz] 696985125> show session_logs
-``
+```
+
 Upload the session log to the test SR:
 
 ```python
@@ -223,7 +227,7 @@ request_type          Command execution
 client_id             mstanczy@cisco.com                                                    
 service_id            b823-y8vn-9otz                                                        
 updates               1 total, 1 succeeded, 0 failed                                        
-result                AsyncExecSingleCommandResult(command='show version', status='SUCCESS')       <<<<<<<<<<<<<<<< 
+**result**                AsyncExecSingleCommandResult(command='show version', status='SUCCESS')
 forwarder             wss://prod.radkit-cloud.cisco.com/forwarder-1/                        
 e2ee_used             True                                                                  
 compression_used      zstd                                                                  
@@ -238,16 +242,16 @@ View the ```result```. Notice the ```command```, ```device``` and ```data``` att
 -----------  ----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                
 service_id   b823-y8vn-9otz                                                                    
-device       router2                                                                           
+**device**       router2                                                                           
 device_uuid  d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1                                              
-command      show version                                                                      
-data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...       <<<<<<<<<<<<<<<<
+**command**      show version                                                                      
+**data**         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...       <<<<<<<<<<<<<<<<
 -----------  ----------------------------------------------------------------------------------
 
->>> showver.result.command
+>>> **showver.result.command**
 'show version'
 
->>> showver.result.data
+>>> **showver.result.data**
 'Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Software [Amsterdam], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 17.3.4a, RELEASE SOFTWARE (fc3)\nTechnical Support: http://www.cisco.com/techsupp
 ort\nCopyright (c) 1986-2021 by Cisco Systems, Inc.\nCompiled Tue 20-Jul-21 04:59 by mcpre\n \n \nCisco IOS-XE software, Copyright (c) 2005-2021 by cisco Systems, Inc.\nAll rights reserved.  Certain components of Cisco IOS-XE software are\nl
 icensed under the GNU General Public License ("GPL") Version 2.0.  The\nsoftware code licensed under GPL Version 2.0 is free software that comes\nwith ABSOLUTELY NO WARRANTY.  You can redistribute and/or modify such\nGPL code under the terms
@@ -320,7 +324,7 @@ data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCis
 -----------  ----------------------------------------------------------------------------------
 ```
 
-With a simple for loop we can iterate through the results dictionary to find the data we're intersted in.
+With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
 For example, let's find the hostname of the device that is running 17.13.01a version:
 
 ```python
