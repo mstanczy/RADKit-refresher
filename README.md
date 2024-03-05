@@ -80,8 +80,8 @@ Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 
 1.11. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
 
-- Device Name: router-<username>
-- Device Type: IOSXE
+- Device Name: ```router-<username>```
+- Device Type: ```IOSXE```
 - Terminal:   populate username/password with a dummy record
 
 
