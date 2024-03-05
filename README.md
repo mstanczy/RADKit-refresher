@@ -102,7 +102,15 @@ sso_login_open_browser_default = true
 
 ## 2. Interactive session
 
-### 2.1. Open interactive session to **router2** and execute:
+### 2.1. Open interactive session 
+
+Open interactive session to **router2** 
+
+```python
+[mstanczy@b823-y8vn-9otz] > interactive router2
+```
+
+Execute below commmands:
 
 - show version
 - dir flash:
@@ -125,7 +133,9 @@ Example from MacOS:
 ```
 
 
-### 2.2.  Download the packages.conf file from Router2 to your laptop.
+### 2.2.  File download
+
+Download the packages.conf file from Router2 to your laptop.
 
 The very first time the request might fail:
 ```python
@@ -146,7 +156,7 @@ Downloaded to /Users/mstanczy/R2packages.conf
 ```
 
 
-### 2.3. Now let's try push the file to CXD 
+### 2.3. CXD upload
 
 ```python
 [mstanczy@b823-y8vn-9otz] > download cxd scp router2 packages.conf mstanczy-packages.conf
@@ -231,7 +241,9 @@ Display the inventory of the Service you're connected to:
 >>> dcloud.inventory
 ```
 
-### 3.2 Collect ```show version``` output from router2 and assign it to ```showver``` variable:
+### 3.2 Collect data
+
+Collect ```show version``` output from router2 and assign it to ```showver``` variable:
 
 ```python
 >>> showver = dcloud.inventory['router2'].exec("show version").wait()
