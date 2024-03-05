@@ -28,10 +28,10 @@ Logging in as: user.pod10@external.cisco.com on domain PROD
 Copy the SSO URL and open it in a private browser tab.
 
 In the browser log in in to cisco.com as a test user:
-
+```
 username:  user.pod10@external.cisco.com
 password: C1scolive23!
-
+```
 
 1.5. Connect to the RADKit service ID ```b823-y8vn-9otz```
 
@@ -62,14 +62,15 @@ port_forward start <device> <remote-port> <local-port>
 When the alert related to self-signed certificate appears click "Advanced" and then "Accept the risk and continue"
 
 Besides the superadmin account we have additional admin user created in this RADKit Service.
-Log in to RADKit Service as an tac_admin user.
 
+Log in to RADKit Service as tac_admin user.
+```
 Username: tac_admin
 password: C1sco!12345
-
+```
 
 1.8.  In Service GUI go to “remote users” and add **your** CCO user there and assign “Training” label. 
-Don’t forget to set “Activate this user” and “Manual”.
+Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 
 
 1.9. In your terminal open a new tab and log in to Network Console using **your own CCO username**.
@@ -79,16 +80,16 @@ Don’t forget to set “Activate this user” and “Manual”.
 
 1.11. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
 
-Device Name: router-<username>
-Device Type: IOSXE
-Terminal:   populate username/password with a dummy record
+- Device Name: router-<username>
+- Device Type: IOSXE
+- Terminal:   populate username/password with a dummy record
 
 
 1.12. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
 
 1.13. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
 
-1.14. In Service GUI create a new label (e.g. "Label-<username>") and assign it to the newly created device. Add the same label to your CCO user as well.
+1.14. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
 
 1.15. In Network Console update the inventory and display the updated list of devices - you should see devices marked with “Training” and your new label.
 
