@@ -2,9 +2,9 @@
 
 ## 1. Connecting to RADKit Service
 
-1.1. Upgrade to Radkit 1.6.5
+1.1. Make sure you have installed Radkit 1.6.4 or newer
 
-https://radkit.cisco.com/downloads/release/1.6.5/
+https://radkit.cisco.com/downloads/release/1.6.4/
 
 
 1.2. We will use a test user so in order to avoid having to clear your browser cache we will modify the default setting so the SSO URL is displayed in the network console instead of opening the URL automatically with your CCO user.
@@ -321,8 +321,8 @@ router4  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router4   d76d137e-2787-4
 ### 4.3 Since we're dealing with a dictionary we can iterate through its items:
 
 ```python
->>> for name, device_result in showver2.result.items():
-...     print(device_result)
+for name, device_result in showver2.result.items():
+    print(device_result)
 
 
 [SUCCESS] ExecSingleCommandResult(command='show version', status='SUCCESS')
@@ -378,7 +378,7 @@ for name, device_result in showver2.result.items():
 ```
 
 
-### 4.6 Execute a stadalone script
+### 4.6 Execute a standalone script
 
 Download the python file from this repository and execute it in your terminal.
 
