@@ -2,9 +2,9 @@
 
 ## 1. Connecting to RADKit Service
 
-1.1. Upgrade to Radkit 1.6.4
+1.1. Upgrade to Radkit 1.6.5
 
-https://radkit.cisco.com/downloads/release/1.6.4/
+https://radkit.cisco.com/downloads/release/1.6.5/
 
 
 1.2. We will use a test user so in order to avoid having to clear your browser cache we will modify the default setting so the SSO URL is displayed in the network console instead of opening the URL automatically with your CCO user.
@@ -46,47 +46,53 @@ Display the inventory for this Service ID
 ```
 
 
-1.6. In your Network Console configure the port forwarding so you can access RADKIt Service GUI from your laptop
+1.6. In your Network Console configure the port forwarding so you can access RADKIt Service GUI from your laptop.
+
+Syntax:
+```
+port_forward start <device> <remote-port> <local-port>
+```
+
 ```python
 [username@b823-y8vn-9otz] > port_forward start radkit 8081 8881
 ```
 
-1.7. In your web browser go to https://localhost:8081 to access RADKit Service GUI:
+1.7. In your web browser go to https://localhost:8881 to access RADKit Service GUI.
 
-Click "Advanced" and then "Accept the risk and continue"
+When the alert related to self-signed certificate appears click "Advanced" and then "Accept the risk and continue"
 
 Besides the superadmin account we have additional admin user created in this RADKit Service.
-Log in to RADKit Service as an admin user.
+Log in to RADKit Service as an tac_admin user.
 
 Username: tac_admin
 password: C1sco!12345
 
 
-1.8.  Go to “remote users” and add **your** CCO user there with “Training” label. 
+1.8.  In Service GUI go to “remote users” and add **your** CCO user there and assign “Training” label. 
 Don’t forget to set “Activate this user” and “Manual”.
 
 
-1.9. In your terminal open a new tab and log in to Network Console using your own CCO username.
+1.9. In your terminal open a new tab and log in to Network Console using **your own CCO username**.
 
 1.10. Connect to the service and display the inventory - how many devices to you see? Notice the difference between the inventory visible to “Admin” user vs “Training” user
 
 
-1.11. In the RADKit Service GUI go to Devices and add a dummy device:
+1.11. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
 
 Device Name: router-<username>
 Device Type: IOSXE
-Terminal:   populate username/password with dummy record
+Terminal:   populate username/password with a dummy record
 
 
-1.12. Go back to Network Console (for your CCO) and display the inventory. Do you see the newly added device?
+1.12. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
 
-1.13. Update the inventory (run ```update_inventory```) and display the updated list of devices. Still no joy...
+1.13. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
 
-1.14. Create a new label ("Label-<username>") and assign it to the newly created device. Add the same label to your CCO user as well.
+1.14. In Service GUI create a new label (e.g. "Label-<username>") and assign it to the newly created device. Add the same label to your CCO user as well.
 
 1.15. In Network Console update the inventory and display the updated list of devices - you should see devices marked with “Training” and your new label.
 
-1.16. Edit the .radkit/client/settings.toml file and modify the ```sso_login_open_browser_default``` parameter:
+1.16. Edit the ```.radkit/client/settings.toml``` file and set the ```sso_login_open_browser_default``` parameter so next time when you login to RADKit the SSO URL will automatically be loaded in the web browser. The same happens if the parameter is removed from settings.toml file.
 
 ```
 [client]
@@ -95,7 +101,7 @@ sso_login_open_browser_default = true
 
 ## 2. Interactive session
 
-### 2.1. Open interactive session to router2 and execute:
+### 2.1. Open interactive session to **router2** and execute:
 
 - show version
 - dir flash:
@@ -109,7 +115,7 @@ detached
 Interactive session logs saved in file [/Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log]
 ```
 
-Display the content of the session log. You can use "!" to execute the OS command without exiting from Network Console
+Display the content of the session log. You can use "!" to execute the OS command without exiting from Network Console.
 
 Example from MacOS:
 
@@ -126,7 +132,7 @@ The very first time the request might fail:
 ERROR: Performing action failed: Invalid SCP response: Administratively disabled.
 ```
 
-One of the students needs to establish interactive session with Router2 and enable SCP Server:
+One of the lab attendees needs to establish interactive session with Router2 and enable SCP Server:
 ```
 Router2(config)#ip scp server enable 
 ```
@@ -139,7 +145,7 @@ Downloaded to /Users/mstanczy/R2packages.conf
 ```
 
 
-### 2.3. Download file and upload to the test SR 696985125
+### 2.3. Now let's try push the file to CXD 
 
 ```python
 [mstanczy@b823-y8vn-9otz] > download cxd scp router2 packages.conf mstanczy-packages.conf
@@ -175,14 +181,16 @@ h2_multiplexing_used  True
 --------------------  ----------------------------------------------
 ```
 
-Notice that the case metadata was updated with Automations tag and the RADKit service ID was automatically attached to the SR.
+Vefiry in CSOne/Quicker CSOne that the file upload was successful.
+
+The first time a file is uploaded to TAC SR through RADKit the case metadata gets updated with Automations tag and the RADKit service ID is automatically attached to the SR.
 
 This integration is implemented in RADKit 1.6 onwards.
 
 
 ### 2.4. Session log file upload
 
-In Radkit console establish interactive session with Router4 and collect “show ip interface brief”. 
+In Radkit console establish interactive session with **Router4** and collect “show ip interface brief”. 
 Exit from the interactive session.
 
 In RADKit console display the session logs. Identify the log file that pertains to most recent session to Router4:
@@ -206,18 +214,23 @@ Upload successful!
 [mstanczy@b823-y8vn-9otz] 696985125> exit
 
 (radkit-1.6) mstanczy@MSTANCZY-M-CGY1 Downloads % radkit-client
+```
 
+Login with your CCO username and connect to the service ID ```b823-y8vn-9otz```
+```python
 >>> client = sso_login("mstanczy@cisco.com")
 
 >>> dcloud = client.service("b823-y8vn-9otz")
 ```
 
-Display the inventory of the Service you connected to:
+```dcloud``` variable represents the Service object instance.
+
+Display the inventory of the Service you're connected to:
 ```python
 >>> dcloud.inventory
 ```
 
-### 3.2 Collect ```show version``` from router2 and save it to ```showver``` variable:
+### 3.2 Collect ```show version``` output from router2 and assign it to ```showver``` variable:
 
 ```python
 >>> showver = dcloud.inventory['router2'].exec("show version").wait()
@@ -243,6 +256,8 @@ h2_multiplexing_used  True
 ```
 
 View the ```result```. Notice the ```command```, ```device``` and ```data``` attributes.
+Note how you can programmatically access this information.
+
 ```python
 >>> showver.result
 [SUCCESS] ExecSingleCommandResult(command='show version', status='SUCCESS')
@@ -272,7 +287,7 @@ REGISTERED/No Licenses in Use\n \ncisco CSR1000V (VXE) processor (revision VXE) 
 ile configuration memory.\n3978396K bytes of physical memory.\n6188032K bytes of virtual hard disk at bootflash:.\n \nConfiguration register is 0x2102\n \nRouter2#'
 ```
 
-You can view the collected data in a human friendly format:
+You can also view the output in a human friendly format:
 
 ```python
 >>> showver.result.data | print  
@@ -333,7 +348,7 @@ data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCis
 
 ### 4.4 Parse the results
 
-With a simple for loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
+With a simple ```for``` loop we can iterate through the ```results``` dictionary to find the data we're intersted in.
 For example, let's find the hostname of the device that is running 17.13.01a version:
 
 ```python
@@ -365,7 +380,10 @@ for name, device_result in showver2.result.items():
 
 ### 4.6 Execute a stadalone script
 
-Download the python file from this repository
+Download the python file from this repository and execute it in your terminal.
+
+Syntax:
+```radkit-client script <filename.py>```
 
 ```python
  radkit-client script simple_client_script_v2.py
@@ -392,3 +410,19 @@ router5 -> 15.4(20140131:100343)
 router2 -> 17.03.04a
 
 ```
+
+### 5 Additional Reference
+
+For more training material and example scripts to get started with Cisco RADKit visit https://github.com/Cisco-RADKit/Intro.
+
+BDB and RADKit: 
+https://scripts.cisco.com/app/docs/Integrations/radkit_integration/
+https://techzone.cisco.com/t5/Lazy-Maestro-RADKit-Knowledge/Building-script-with-RADKit-Client-and-BDB/ta-p/2015868
+
+RADKit Workbench: https://scripts.cisco.com/app/Radkit_Workbench/
+
+Remote Support Authorization (RSA) in Catalyst Center (formerly Cisco DNA Center): 
+https://techzone.cisco.com/t5/SD-Access-Software-Defined/Configure-Cisco-DNA-Center-Remote-Support-Authorization-Feature/ta-p/7173657
+https://techzone.cisco.com/t5/SD-Access-Software-Defined/Overview-of-RADKit-Support-Service-Remote-Support-Authorization/ta-p/7075172
+https://techzone.cisco.com/t5/Lazy-Maestro-RADKit-Knowledge/Managing-a-DNA-Center-DNAC-with-RADKit-standalone/ta-p/3981240
+
