@@ -296,13 +296,18 @@ You can also view the output in a human friendly format:
 
 ## 4. RADKit Client - collecting outputs from multiple devices
 
-### 4.1 Create a dictionary called “iosxe” that contains 2 devices: router2 and router4
+### 4.1 Create a device dictionary 
+
+Create a dictionary called “iosxe” that contains 2 devices: router2 and router4
+
 ```python
 >>> iosxe = dcloud.inventory.subset(["router2", "router4"])
 >>> print(iosxe)
 ```
 
-### 4.2 Execute "show version" on the devices included in the device dictionary "iosxe":
+### 4.2 Execute the command 
+
+Execute "show version" on the devices included in the device dictionary "iosxe":
 
 ```python
 >>> showver2 = iosxe.exec("show version").wait()
@@ -319,7 +324,9 @@ router2  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router2   d73d40b9-fc28-4
 router4  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router4   d76d137e-2787-414b-a181-e7c3e005fb37  show version  Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCisco IOS Softw...
 ```
 
-### 4.3 Since we're dealing with a dictionary we can iterate through its items:
+### 4.3 Examine the results
+
+Since we're dealing with a dictionary we can iterate through its items:
 
 ```python
 for name, device_result in showver2.result.items():
