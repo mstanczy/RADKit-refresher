@@ -416,6 +416,7 @@ router2 -> 17.03.04a
 For more training material and example scripts to get started with Cisco RADKit visit https://github.com/Cisco-RADKit/Intro.
 
 BDB and RADKit: 
+
 https://scripts.cisco.com/app/docs/Integrations/radkit_integration/
 
 https://techzone.cisco.com/t5/Lazy-Maestro-RADKit-Knowledge/Building-script-with-RADKit-Client-and-BDB/ta-p/2015868
@@ -423,6 +424,7 @@ https://techzone.cisco.com/t5/Lazy-Maestro-RADKit-Knowledge/Building-script-with
 RADKit Workbench: https://scripts.cisco.com/app/Radkit_Workbench/
 
 Remote Support Authorization (RSA) in Catalyst Center (formerly Cisco DNA Center): 
+
 https://techzone.cisco.com/t5/SD-Access-Software-Defined/Configure-Cisco-DNA-Center-Remote-Support-Authorization-Feature/ta-p/7173657
 
 https://techzone.cisco.com/t5/SD-Access-Software-Defined/Overview-of-RADKit-Support-Service-Remote-Support-Authorization/ta-p/7075172
