@@ -437,12 +437,12 @@ Note : Genie is only available through PIP installers.
 
 Execute the standalone script which utilizes Genie
 ```python
- radkit-client script xe_version_standalone.py
+ python3 xe_version_standalone.py
 ```
 
 Example output:
 
-````python
+```python
 (radkit-1.6) mstanczy@MSTANCZY-M-CGY1 Downloads % python3 xe_version_standalone.py
 Service ID: s2ld-twxy-gsa5
 Cisco email: mstanczy@cisco.com
