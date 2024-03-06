@@ -60,26 +60,22 @@ password: C1sco!12345
 1.7.  In Service GUI go to “remote users” and add **your** CCO user there and assign “Training” label. 
 Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 
+1.8. Go to Devices tab and notice some devices are tagged with different labels. 
 
-1.8. In your terminal open a new tab and log in to Network Console using **your own CCO username**.
-
-1.9. Connect to the service and display the inventory - how many devices to you see? Notice the difference between the inventory visible to “Admin” user vs “Training” user
-
-
-1.10. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
+1.9. Add a dummy device with these parameters:
 
 - Device Name: ```router-<username>```
 - Device Type: ```IOSXE```
 - Terminal:   populate username/password with a dummy record
 
 
-1.11. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
+1.10. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
 
-1.12. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
+1.11. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
 
-1.13. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
+1.12. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
 
-1.14. In Network Console update the inventory and display the updated list of devices - you should see devices tagged with “Training” and your new label.
+1.13. In Network Console update the inventory and display the updated list of devices - you should see devices tagged with “Training” and your new label.
 
 
 ## 2. Interactive session
@@ -382,7 +378,7 @@ for name, device_result in showver2.result.items():
 ```
 
 
-### 4.6 Execute a standalone script
+### 4.6 Execute a standalone script (regex parsing)
 
 Download the python file from this repository and execute it in your terminal.
 
@@ -412,6 +408,51 @@ router1 -> 15.4(20140131:100343)
 router3 -> 15.4(20140131:100343)
 router5 -> 15.4(20140131:100343)
 router2 -> 17.03.04a
+
+```
+
+## 4.7 [Optional] Execute a standalone script (Genie) - only for users who installed RADKit via pip installer.
+
+Several IOSXE outputs have been covered by Genie models, which significantly simplifies parsing the data.
+Instead of using regex we can simply access individual parts of the IOSXE outputs in a Pythonic fashion.
+
+For exammple:
+```python
+    ver_table = PrettyTable(["Hostname", "Version", "Uptime"])
+
+    for name, output in parsed_versions.items():
+        if output["show version"].data:
+            ver_table.add_row(
+                [
+                    name,
+                    output["show version"].data["version"]["xe_version"],
+                    output["show version"].data["version"]["uptime"],
+                ]
+            )
+```
+
+Note : Genie is only available through PIP installers.
+    On Windows, you must install WSL and install RADKit inside WSL to have support for RADKit genie, due to external libraries not native on Windows.
+
+
+Execute the standalone script which utilizes Genie
+```python
+ radkit-client script xe_version_standalone.py
+```
+
+Example output:
+
+````python
+(radkit-1.6) mstanczy@MSTANCZY-M-CGY1 Downloads % python3 xe_version_standalone.py
+Service ID: s2ld-twxy-gsa5
+Cisco email: mstanczy@cisco.com
+
++------------------------+-----------+---------------------------------------+
+|        Hostname        |  Version  |                 Uptime                |
++------------------------+-----------+---------------------------------------+
+| syd-wireless-pod4-wlc1 | 17.06.06a |     8 weeks, 18 hours, 26 minutes     |
+| syd-wireless-pod3-wlc1 |  17.12.02 | 4 weeks, 2 days, 20 hours, 32 minutes |
++------------------------+-----------+---------------------------------------+
 
 ```
 
