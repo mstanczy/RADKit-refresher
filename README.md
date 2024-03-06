@@ -411,12 +411,12 @@ router2 -> 17.03.04a
 
 ```
 
-## 4.7 [Optional] Execute a standalone script (Genie) - only for users who installed RADKit via pip installer.
+### 4.7 [Optional] Execute a standalone script (Genie) - only for users who installed RADKit via pip installer.
 
 Several IOSXE outputs have been covered by Genie models, which significantly simplifies parsing the data.
 Instead of using regex we can simply access individual parts of the IOSXE outputs in a Pythonic fashion.
 
-For exammple:
+For example:
 ```python
     ver_table = PrettyTable(["Hostname", "Version", "Uptime"])
 
@@ -453,7 +453,6 @@ Cisco email: mstanczy@cisco.com
 | syd-wireless-pod4-wlc1 | 17.06.06a |     8 weeks, 18 hours, 26 minutes     |
 | syd-wireless-pod3-wlc1 |  17.12.02 | 4 weeks, 2 days, 20 hours, 32 minutes |
 +------------------------+-----------+---------------------------------------+
-
 ```
 
 ### 5 Additional Reference
