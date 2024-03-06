@@ -425,8 +425,8 @@ For example:
             ver_table.add_row(
                 [
                     name,
-                    output["show version"].data["version"]["xe_version"],
-                    output["show version"].data["version"]["uptime"],
+                    output["show version"].data["version"]["xe_version"],     <<<< accessing "xe_version" key
+                    output["show version"].data["version"]["uptime"],         <<<< accessing "uptime" key
                 ]
             )
 ```
@@ -435,7 +435,7 @@ Note : Genie is only available through PIP installers.
     On Windows, you must install WSL and install RADKit inside WSL to have support for RADKit genie, due to external libraries not native on Windows.
 
 
-Execute the standalone script which utilizes Genie
+Review the standalone script which utilizes Genie and then execute it:
 ```python
  python3 xe_version_standalone.py
 ```
@@ -475,3 +475,7 @@ https://techzone.cisco.com/t5/SD-Access-Software-Defined/Overview-of-RADKit-Supp
 
 https://techzone.cisco.com/t5/Lazy-Maestro-RADKit-Knowledge/Managing-a-DNA-Center-DNAC-with-RADKit-standalone/ta-p/3981240
 
+
+Genie:
+
+https://developer.cisco.com/docs/genie-docs/
