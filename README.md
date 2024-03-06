@@ -7,46 +7,34 @@
 https://radkit.cisco.com/downloads/release/1.6.4/
 
 
-1.2. We will use a test user so in order to avoid having to clear your browser cache we will modify the default setting so the SSO URL is displayed in the network console instead of opening the URL automatically with your CCO user.
 
-In the ```.radkit/client``` folder create a new file named ```settings.toml``` with this content:
+1.2. Launch ```radkit-network-console```
 
-```
-[client]
-sso_login_open_browser_default = false
-```
-
-1.3. Launch ```radkit-network-console```
-
-1.4. Log in to RADKit as a test user:
+1.3. Log in to RADKit:
 
 ```python
-> login user.pod10@external.cisco.com
-Logging in as: user.pod10@external.cisco.com on domain PROD
+> login <your email address>
+Logging in as: mstanczy@cisco.com on domain PROD
 ```
 
-Copy the SSO URL and open it in a private browser tab.
+A new browser tab will open to accept the SSO Authorization request. After Accepting the request do not click "Log out all sessions"!
 
-In the browser log in in to cisco.com as a test user:
-```
-username:  user.pod10@external.cisco.com
-password: C1scolive23!
-```
+Once the email address Authentication is validated successfully, the prompt in Network Console will be changed to your CCO ID.
 
-1.5. Connect to the RADKit service ID ```b823-y8vn-9otz```
+1.4. Connect to the RADKit Service ID ```b823-y8vn-9otz```
 
 ```python
 > service b823-y8vn-9otz  no-sr
 ```
 
-Display the inventory for this Service ID
+Display the inventory for this Service instance:
 
 ```python
 > show inventory
 ```
 
 
-1.6. In your Network Console configure the port forwarding so you can access RADKIt Service GUI from your laptop.
+1.5. In your Network Console configure the port forwarding so you can access RADKIt Service GUI from your laptop.
 
 Syntax:
 ```
@@ -57,7 +45,7 @@ port_forward start <device> <remote-port> <local-port>
 [username@b823-y8vn-9otz] > port_forward start radkit 8081 8881
 ```
 
-1.7. In your web browser go to https://localhost:8881 to access RADKit Service GUI.
+1.6. In your web browser go to https://localhost:8881 to access RADKit Service GUI.
 
 When the alert related to self-signed certificate appears click "Advanced" and then "Accept the risk and continue"
 
@@ -69,36 +57,30 @@ Username: tac_admin
 password: C1sco!12345
 ```
 
-1.8.  In Service GUI go to “remote users” and add **your** CCO user there and assign “Training” label. 
+1.7.  In Service GUI go to “remote users” and add **your** CCO user there and assign “Training” label. 
 Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 
 
-1.9. In your terminal open a new tab and log in to Network Console using **your own CCO username**.
+1.8. In your terminal open a new tab and log in to Network Console using **your own CCO username**.
 
-1.10. Connect to the service and display the inventory - how many devices to you see? Notice the difference between the inventory visible to “Admin” user vs “Training” user
+1.9. Connect to the service and display the inventory - how many devices to you see? Notice the difference between the inventory visible to “Admin” user vs “Training” user
 
 
-1.11. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
+1.10. In the RADKit Service GUI go to Devices and add a dummy device with these parameters:
 
 - Device Name: ```router-<username>```
 - Device Type: ```IOSXE```
 - Terminal:   populate username/password with a dummy record
 
 
-1.12. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
+1.11. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
 
-1.13. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
+1.12. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
 
-1.14. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
+1.13. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
 
-1.15. In Network Console update the inventory and display the updated list of devices - you should see devices marked with “Training” and your new label.
+1.14. In Network Console update the inventory and display the updated list of devices - you should see devices tagged with “Training” and your new label.
 
-1.16. Edit the ```.radkit/client/settings.toml``` file and set the ```sso_login_open_browser_default``` parameter so next time when you login to RADKit the SSO URL will automatically be loaded in the web browser. The same happens if the parameter is removed from settings.toml file.
-
-```
-[client]
-sso_login_open_browser_default = true
-```
 
 ## 2. Interactive session
 
@@ -158,6 +140,8 @@ Downloaded to /Users/mstanczy/R2packages.conf
 
 ### 2.3. CXD upload
 
+Try perform a file transfer via CXD (push a file to the TAC SR)
+
 ```python
 [mstanczy@b823-y8vn-9otz] > download cxd scp router2 packages.conf mstanczy-packages.conf
 ERROR: Invalid SR number format
@@ -192,7 +176,7 @@ h2_multiplexing_used  True
 --------------------  ----------------------------------------------
 ```
 
-Vefiry in CSOne/Quicker CSOne that the file upload was successful.
+Vefiry in CSOne/Quicker CSOne that the file upload to SR 696985125 was successful.
 
 The first time a file is uploaded to TAC SR through RADKit the case metadata gets updated with Automations tag and the RADKit service ID is automatically attached to the SR.
 
