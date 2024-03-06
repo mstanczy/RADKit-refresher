@@ -14,7 +14,6 @@ https://radkit.cisco.com/downloads/release/1.6.4/
 
 ```python
 > login <your email address>
-Logging in as: mstanczy@cisco.com on domain PROD
 ```
 
 A new browser tab will open to accept the SSO Authorization request. After Accepting the request do not click "Log out all sessions"!
@@ -24,7 +23,7 @@ Once the email address Authentication is validated successfully, the prompt in N
 1.4. Connect to the RADKit Service ID ```b823-y8vn-9otz```
 
 ```python
-> service b823-y8vn-9otz  no-sr
+> service b823-y8vn-9otz no-sr
 ```
 
 Display the inventory for this Service instance:
@@ -65,17 +64,17 @@ Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 1.9. Add a dummy device with these parameters:
 
 - Device Name: ```router-<username>```
-- Device Type: ```IOSXE```
+- Device Type: ```IOS XE```
 - Terminal:   populate username/password with a dummy record
 
 
-1.10. Go back to Network Console (with your CCO) and display the inventory. Do you see the newly added device?
+1.10. Go back to Network Console (terminal) and display the inventory. Do you see the newly added device?
 
 1.11. Update the inventory (run ```update_inventory```) and display the updated list of devices. The new device is still missing...
 
 1.12. In Service GUI create a new label (e.g. ```"Label-<username>"```) and assign it to the newly created device. Add the same label to your CCO user as well.
 
-1.13. In Network Console update the inventory and display the updated list of devices - you should see devices tagged with “Training” and your new label.
+1.13. In Network Console update the inventory and display the updated list of devices - you should see devices tagged either with “Training” or your new label.
 
 
 ## 2. Interactive session
