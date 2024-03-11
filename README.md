@@ -20,10 +20,10 @@ A new browser tab will open to accept the SSO Authorization request. After Accep
 
 Once the email address Authentication is validated successfully, the prompt in Network Console will be changed to your CCO ID.
 
-1.4. Connect to the RADKit Service ID ```b823-y8vn-9otz```
+1.4. Connect to the RADKit Service ID ```8055-ysra-08qa```
 
 ```python
-> service b823-y8vn-9otz no-sr
+> service 8055-ysra-08qa no-sr
 ```
 
 Display the inventory for this Service instance:
@@ -41,7 +41,7 @@ port_forward start <device> <remote-port> <local-port>
 ```
 
 ```python
-[username@b823-y8vn-9otz] > port_forward start radkit 8081 8881
+[username@8055-ysra-08qa] > port_forward start radkit 8081 8881
 ```
 
 1.6. In your web browser go to https://localhost:8881 to access RADKit Service GUI.
@@ -84,7 +84,7 @@ Don’t forget to set ```"Activate this user”``` and ```“Manual”```.
 Open interactive session to **router2** 
 
 ```python
-[mstanczy@b823-y8vn-9otz] > interactive router2
+[mstanczy@8055-ysra-08qa] > interactive router2
 ```
 
 Execute below commmands:
@@ -106,7 +106,7 @@ Display the content of the session log. You can use "!" to execute the OS comman
 Example from MacOS:
 
 ```
-[mstanczy@b823-y8vn-9otz] > !more /Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log
+[mstanczy@8055-ysra-08qa] > !more /Users/mstanczy/.radkit/session_logs/client/20240304-125659407911-router2.log
 ```
 
 
@@ -116,7 +116,7 @@ Download the packages.conf file from Router2 to your laptop.
 
 The very first time the request might fail:
 ```python
-[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
+[mstanczy@8055-ysra-08qa] > download scp router2 packages.conf R2packages.conf
 ERROR: Performing action failed: Invalid SCP response: Administratively disabled.
 ```
 
@@ -127,7 +127,7 @@ Router2(config)#ip scp server enable
 
 Retry downloading the file:
 ```python
-[mstanczy@b823-y8vn-9otz] > download scp router2 packages.conf R2packages.conf
+[mstanczy@8055-ysra-08qa] > download scp router2 packages.conf R2packages.conf
 R2packages.conf 100.0% [==========================>] 1105/1105 eta [00:00]
 Downloaded to /Users/mstanczy/R2packages.conf
 ```
@@ -138,30 +138,30 @@ Downloaded to /Users/mstanczy/R2packages.conf
 Try perform a file transfer via CXD (push a file to the TAC SR)
 
 ```python
-[mstanczy@b823-y8vn-9otz] > download cxd scp router2 packages.conf mstanczy-packages.conf
+[mstanczy@8055-ysra-08qa] > download cxd scp router2 packages.conf mstanczy-packages.conf
 ERROR: Invalid SR number format
 
 CXD transfers require a Cisco Service Request (SR) context.
 Please reopen the Service connection specifying the SR number:
-    service b823-y8vn-9otz sr <sr-number>
+    service 8055-ysra-08qa sr <sr-number>
 then request the CXD transfer again.
 ```
 
 Connect to the Service once again but this time in the context of the test SR 696985125
 ```python
-[mstanczy@b823-y8vn-9otz] > service b823-y8vn-9otz sr 696985125 manual_upload
+[mstanczy@8055-ysra-08qa] > service 8055-ysra-08qa sr 696985125 manual_upload
 ```
 
 Retry the file transfer from Router2 to the test SR:
 
 ```python
-[mstanczy@b823-y8vn-9otz] 696985125> download cxd scp router2 packages.conf mstanczy-packages.conf
+[mstanczy@8055-ysra-08qa] 696985125> download cxd scp router2 packages.conf mstanczy-packages.conf
 [SUCCESS] FillerRequest(status='SUCCESS', rpc_name='read-and-upload-file')
 --------------------  ----------------------------------------------
 sent_timestamp        2024-03-04 13:06:22                           
 request_type          upload to destination                         
 client_id             mstanczy@cisco.com                            
-service_id            b823-y8vn-9otz                                
+service_id            8055-ysra-08qa                                
 updates               1 total, 1 succeeded, 0 failed                
 result                None                                          
 forwarder             wss://prod.radkit-cloud.cisco.com/forwarder-1/
@@ -186,13 +186,13 @@ Exit from the interactive session.
 In RADKit console display the session logs. Identify the log file that pertains to most recent session to Router4:
 
 ```python
-[mstanczy@b823-y8vn-9otz] 696985125> show session_logs
+[mstanczy@8055-ysra-08qa] 696985125> show session_logs
 ```
 
 Upload the session log to the test SR:
 
 ```python
-[mstanczy@b823-y8vn-9otz] 696985125> session_logs upload 20240304-131213208092-router4.log
+[mstanczy@8055-ysra-08qa] 696985125> session_logs upload 20240304-131213208092-router4.log
 Uploading session log /Users/mstanczy/.radkit/session_logs/client/20240304-131213208092-router4.log [761 bytes] to 696985125, please wait ...
 Upload successful!
 ```
@@ -201,16 +201,16 @@ Upload successful!
 
 ### 3.1  Exit from network console and start RADKit Client.
 ```python
-[mstanczy@b823-y8vn-9otz] 696985125> exit
+[mstanczy@8055-ysra-08qa] 696985125> exit
 
 (radkit-1.6) mstanczy@MSTANCZY-M-CGY1 Downloads % radkit-client
 ```
 
-Login with your CCO username and connect to the service ID ```b823-y8vn-9otz```
+Login with your CCO username and connect to the service ID ```8055-ysra-08qa```
 ```python
 >>> client = sso_login("mstanczy@cisco.com")
 
->>> dcloud = client.service("b823-y8vn-9otz")
+>>> dcloud = client.service("8055-ysra-08qa")
 ```
 
 ```dcloud``` variable represents the Service object instance.
@@ -237,7 +237,7 @@ View the attributes of "showver" object. One of them will be ```result```:
 sent_timestamp        2024-03-04 13:21:59                                                   
 request_type          Command execution                                                     
 client_id             mstanczy@cisco.com                                                    
-service_id            b823-y8vn-9otz                                                        
+service_id            8055-ysra-08qa                                                        
 updates               1 total, 1 succeeded, 0 failed                                        
 **result**                AsyncExecSingleCommandResult(command='show version', status='SUCCESS')
 forwarder             wss://prod.radkit-cloud.cisco.com/forwarder-1/                        
@@ -255,7 +255,7 @@ Note how you can programmatically access this information.
 [SUCCESS] ExecSingleCommandResult(command='show version', status='SUCCESS')
 -----------  ----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                
-service_id   b823-y8vn-9otz                                                                    
+service_id   8055-ysra-08qa                                                                    
 **device**       router2                                                                           
 device_uuid  d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1                                              
 **command**      show version                                                                      
@@ -311,8 +311,8 @@ Confirm the data was collected successfully:
 <radkit_client.sync.command.DeviceToSingleCommandOutputDict object at 0x118331fa0>
 key      status    identity            service_id      device    device_uuid                           command       data                                                                                              
 -------  --------  ------------------  --------------  --------  ------------------------------------  ------------  ----------------------------------------------------------------------------------
-router2  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router2   d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1  show version  Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...
-router4  SUCCESS   mstanczy@cisco.com  b823-y8vn-9otz  router4   d76d137e-2787-414b-a181-e7c3e005fb37  show version  Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCisco IOS Softw...
+router2  SUCCESS   mstanczy@cisco.com  8055-ysra-08qa  router2   d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1  show version  Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...
+router4  SUCCESS   mstanczy@cisco.com  8055-ysra-08qa  router4   d76d137e-2787-414b-a181-e7c3e005fb37  show version  Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCisco IOS Softw...
 ```
 
 ### 4.3 Examine the results
@@ -327,7 +327,7 @@ for name, device_result in showver2.result.items():
 [SUCCESS] ExecSingleCommandResult(command='show version', status='SUCCESS')
 -----------  ----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                
-service_id   b823-y8vn-9otz                                                                    
+service_id   8055-ysra-08qa                                                                    
 device       router4                                                                           
 device_uuid  d76d137e-2787-414b-a181-e7c3e005fb37                                              
 command      show version                                                                      
@@ -337,7 +337,7 @@ data         Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCis
 [SUCCESS] ExecSingleCommandResult(command='show version', status='SUCCESS')
 -----------  ----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                
-service_id   b823-y8vn-9otz                                                                    
+service_id   8055-ysra-08qa                                                                    
 device       router2                                                                           
 device_uuid  d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1                                              
 command      show version                                                                      
@@ -391,7 +391,7 @@ Syntax:
 The output should look like this:
 ```python
 Enter your CCO user id: mstanczy@cisco.com
-Enter the service id: b823-y8vn-9otz
+Enter the service id: 8055-ysra-08qa
 
 A browser window was opened to continue the authentication process. Please follow the instructions there.
 
