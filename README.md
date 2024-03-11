@@ -415,11 +415,16 @@ router2 -> 17.03.04a
 Multiple commands can be executed in a row on a ```Device``` or ```DeviceDict```. 
 
 In this example <i>iosxe</i> is a dictionary that contains 2 devices (router2, router4). 
+
+```python
+iosxe = dcloud.inventory.subset(["router2", "router4"])
+```
+
 Let's execute two commands on both devices and display their result.
 
 ```python
 show_commands = iosxe.exec(["show version" , "show license summary"]).wait()
-
+```
 
 The results are indexed first by <i>device</i> (if a ```DeviceDict``` is used), then by <i>command</i>.
 
