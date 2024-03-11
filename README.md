@@ -472,7 +472,7 @@ We can easily iterate through the results dictionary:
 ```python
 for name, device_result in show_commands.result.items():
     print(name, device_result)
-
+```
 <!---
 router4 [SUCCESS] <radkit_client.sync.command.ExecCommandsResult object at 0x1237240a0>
 command               status    data                                                                                 sudo         
