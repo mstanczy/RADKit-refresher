@@ -428,8 +428,12 @@ show_commands = iosxe.exec(["show version" , "show license summary"]).wait()
 
 The results are indexed first by <i>device</i> (if a ```DeviceDict``` is used), then by <i>command</i>.
 
+For example, in order to access the output of "show license summary" collected from "router4" we could execute this statement:
+
 ```python
 >>> print(show_commands.result['router4']['show license summary'])
+```
+<!---
 [SUCCESS] ExecSingleCommandResult(command='show license summary', status='SUCCESS')
 -----------  -----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                 
@@ -440,12 +444,14 @@ command      show license summary
 data         Router4#show license summary\nAccount Information:\n  Smart Account: <none>\n  V...
 -----------  -----------------------------------------------------------------------------------
 ```
+-->
 
-The output itself is stored in ```.result[device][command].data```:
+The output of the command is stored in ```.result[device][command].data```:
 
 ```python
 >>> print(show_commands.result['router4']['show license summary'].data)
-
+```
+<!---
 Router4#show license summary
 Account Information:
   Smart Account: <none>
@@ -457,12 +463,17 @@ License Usage:
   No licenses in use
 ```
 
+-->
+
+
+
 We can easily iterate through the results dictionary:
 
 ```python
 for name, device_result in show_commands.result.items():
     print(name, device_result)
 
+<!---
 router4 [SUCCESS] <radkit_client.sync.command.ExecCommandsResult object at 0x1237240a0>
 command               status    data                                                                                 sudo         
 --------------------  --------  -----------------------------------------------------------------------------------  ------
@@ -476,6 +487,7 @@ command               status    data                                            
 show version          SUCCESS   Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...    False
 show license summary  SUCCESS   Router2#show license summary\nSmart Licensing is ENABLED\n \nRegistration:\n  Sta...  False
 ```
+-->
 
 
 Let's now try iterate through the dictionary and pull the specific output from each device.
