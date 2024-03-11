@@ -239,7 +239,7 @@ request_type          Command execution
 client_id             mstanczy@cisco.com                                                    
 service_id            8055-ysra-08qa                                                        
 updates               1 total, 1 succeeded, 0 failed                                        
-<b>result</b>                AsyncExecSingleCommandResult(command='show version', status='SUCCESS')
+result                AsyncExecSingleCommandResult(command='show version', status='SUCCESS')
 forwarder             wss://prod.radkit-cloud.cisco.com/forwarder-1/                        
 e2ee_used             True                                                                  
 compression_used      zstd                                                                  
@@ -256,10 +256,10 @@ Note how you can programmatically access this information.
 -----------  ----------------------------------------------------------------------------------
 identity     mstanczy@cisco.com                                                                
 service_id   8055-ysra-08qa                                                                    
-<b>device/b>       router2                                                                           
+device       router2                                                                           
 device_uuid  d73d40b9-fc28-42de-92f1-6cbfd5a9dbd1                                              
-<b>command/b>      show version                                                                      
-<b>data/b>         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...   
+command      show version                                                                      
+data         Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...   
 -----------  ----------------------------------------------------------------------------------
 
 >>> showver.result.command
