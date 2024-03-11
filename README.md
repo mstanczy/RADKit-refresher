@@ -410,7 +410,128 @@ router2 -> 17.03.04a
 
 ```
 
-### 4.7 [Optional] Execute a standalone script (Genie) - only for users who installed RADKit via pip installer.
+### 4.7 Collect multiple outputs from multiple devices
+
+Multiple commands can be executed in a row on a ```Device``` or ```DeviceDict```. 
+
+In this example <i>iosxe</i> is a dictionary that contains 2 devices (router2, router4). 
+Let's execute two commands on both devices and display their result.
+
+```python
+show_commands = iosxe.exec(["show version" , "show license summary"]).wait()
+
+
+The results are indexed first by <i>device</i> (if a ```DeviceDict``` is used), then by <i>command</i>.
+
+```python
+>>> print(show_commands.result['router4']['show license summary'])
+[SUCCESS] ExecSingleCommandResult(command='show license summary', status='SUCCESS')
+-----------  -----------------------------------------------------------------------------------
+identity     mstanczy@cisco.com                                                                 
+service_id   8055-ysra-08qa                                                                     
+device       router4                                                                            
+device_uuid  71124ff3-2d18-4ac7-b8e0-f798c6028d69                                               
+command      show license summary                                                               
+data         Router4#show license summary\nAccount Information:\n  Smart Account: <none>\n  V...
+-----------  -----------------------------------------------------------------------------------
+```
+
+The output itself is stored in ```.result[device][command].data```:
+
+```python
+>>> print(show_commands.result['router4']['show license summary'].data)
+
+Router4#show license summary
+Account Information:
+  Smart Account: <none>
+  Virtual Account: <none>
+ 
+License Usage:
+  License                 Entitlement Tag               Count Status
+  -----------------------------------------------------------------------------
+  No licenses in use
+```
+
+We can easily iterate through the results dictionary:
+
+```python
+for name, device_result in show_commands.result.items():
+    print(name, device_result)
+
+router4 [SUCCESS] <radkit_client.sync.command.ExecCommandsResult object at 0x1237240a0>
+command               status    data                                                                                 sudo         
+--------------------  --------  -----------------------------------------------------------------------------------  ------
+show version          SUCCESS   Router4#show version\nCisco IOS XE Software, Version 17.13.01a\nCisco IOS Softw...   False
+show license summary  SUCCESS   Router4#show license summary\nAccount Information:\n  Smart Account: <none>\n  V...  False
+
+
+router2 [SUCCESS] <radkit_client.sync.command.ExecCommandsResult object at 0x1232e5fa0>
+command               status    data                                                                                  sudo         
+--------------------  --------  ------------------------------------------------------------------------------------  ------
+show version          SUCCESS   Router2#show version\nCisco IOS XE Software, Version 17.03.04a\nCisco IOS Softw...    False
+show license summary  SUCCESS   Router2#show license summary\nSmart Licensing is ENABLED\n \nRegistration:\n  Sta...  False
+```
+
+
+Let's now try iterate through the dictionary and pull the specific output from each device.
+Execute this code:
+
+```python
+for name, device_result in show_commands.result.items():
+    print(device_result['show license summary'].data)
+    print("\n==========\n")
+```
+
+
+Let's assume we're only interested in a particular piece of information from that output (e.g. Smart Account).
+A very convenient way to do it is using radkit-genie library, but this module is not included in the standard RADKit installer package.
+In order to use Genie we would need to install RADKit using ```pip install``` method.
+
+In this example we will extract the Smart Account info using regular expression in python:
+
+Execute this code:
+
+```python
+
+import re
+
+account_regex = re.compile("Smart Account:\s+(.+)")
+```
+
+Now we want to iterate through the results dictionary and pull the Smart Account information for each device the data was collected from:
+
+
+```python
+for name, device_result in show_commands.result.items():
+    account = account_regex.findall(device_result['show license summary'].data)[0]
+    print(f"{name} -> SA: {account}")
+```
+
+
+
+
+
+import regex as re
+
+# import ExecResultStatus from the radkit_client library to verify status
+from radkit_client import ExecResultStatus
+
+version_regex = re.compile("Version\s+(\S+),", flags=re.DOTALL)
+account_regex = re.compile("Smart Account:\s+(.+)")
+for name, device_result in show_commands.result.items():
+    if device_result['show version'].status != ExecResultStatus.SUCCESS:
+        print(f"no response from {name}")
+        continue
+    account=account_regex.findall(device_result['show license summary'].data)[0]
+    version = version_regex.findall(device_result['show version'].data)[0]
+    print(f"{name} -> version: {version} -> SA: {account}")
+```
+
+
+
+
+
+### 4.8 [Optional] Execute a standalone script (Genie) - only for users who installed RADKit via pip installer.
 
 Several IOSXE outputs have been covered by Genie models, which significantly simplifies parsing the data.
 Instead of using regex we can simply access individual parts of the IOSXE outputs in a Pythonic fashion.
@@ -424,8 +545,8 @@ For example:
             ver_table.add_row(
                 [
                     name,
-                    output["show version"].data["version"]["xe_version"],     <<<< accessing "xe_version" key
-                    output["show version"].data["version"]["uptime"],         <<<< accessing "uptime" key
+                    output["show version"].data["version"]["xe_version"],  < access "xe_version" key
+                    output["show version"].data["version"]["uptime"],      < access "uptime" key
                 ]
             )
 ```
