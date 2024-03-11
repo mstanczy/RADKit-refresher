@@ -285,6 +285,12 @@ You can also view the output in a human friendly format:
 >>> showver.result.data | print  
 ```
 
+or
+
+```python
+>>> print(showver.result.data)  
+```
+
 ## 4. RADKit Client - collecting outputs from multiple devices
 
 ### 4.1 Create a device dictionary 
