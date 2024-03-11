@@ -576,12 +576,7 @@ Note : Genie is only available through PIP installers.
     On Windows, you must install WSL and install RADKit inside WSL to have support for RADKit genie, due to external libraries not native on Windows.
 
 
-Review the standalone script which utilizes Genie and then execute it:
-```python
- python3 xe_version_standalone.py
-```
-
-Example output:
+Example output of the standalone script that uses radkit-genie:
 
 ```python
 (radkit-1.6) mstanczy@MSTANCZY-M-CGY1 Downloads % python3 xe_version_standalone.py
