@@ -501,10 +501,10 @@ for name, device_result in show_commands.result.items():
 
 
 Let's assume we're only interested in a particular piece of information from that output (e.g. Smart Account).
-A very convenient way to do it is using radkit-genie library, but this module is not included in the standard RADKit installer package.
+A very convenient way to do it is using <i>radkit-genie</i> library, but this module is not included in the standard RADKit installer package.
 In order to use Genie we would need to install RADKit using ```pip install``` method.
 
-In this example we will extract the Smart Account info using regular expression in python:
+In this example we will extract the Smart Account info using regular expression in Python.
 
 Execute this code:
 
@@ -525,9 +525,11 @@ for name, device_result in show_commands.result.items():
 ```
 
 
+Let's put everything together and come up with a script that uses data from both commands collected from both devices.
+We will pull the IOSXE version from "show version" output and Smart Account information from the "show license summary" output.
 
 
-
+```python
 import regex as re
 
 # import ExecResultStatus from the radkit_client library to verify status
