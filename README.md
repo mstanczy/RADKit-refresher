@@ -564,8 +564,10 @@ For example:
             ver_table.add_row(
                 [
                     name,
-                    output["show version"].data["version"]["xe_version"],  < access "xe_version" key
-                    output["show version"].data["version"]["uptime"],      < access "uptime" key
+                    # access "xe_version" key from genie model
+                    output["show version"].data["version"]["xe_version"],
+                    # access "uptime" key from genie model
+                    output["show version"].data["version"]["uptime"],     
                 ]
             )
 ```
